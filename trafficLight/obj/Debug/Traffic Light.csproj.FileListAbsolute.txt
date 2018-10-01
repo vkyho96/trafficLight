@@ -1,0 +1,8 @@
+C:\Users\dolla\Desktop\c#\Traffic Light\Project 1\obj\Debug\Traffic Light.csprojAssemblyReference.cache
+C:\Users\dolla\Desktop\c#\Traffic Light\Project 1\obj\Debug\Project_1.Properties.Resources.resources
+C:\Users\dolla\Desktop\c#\Traffic Light\Project 1\obj\Debug\Traffic Light.csproj.GenerateResource.cache
+C:\Users\dolla\Desktop\c#\Traffic Light\Project 1\obj\Debug\Traffic Light.csproj.CoreCompileInputs.cache
+C:\Users\dolla\Desktop\c#\Traffic Light\Project 1\obj\Debug\Project 1.exe
+C:\Users\dolla\Desktop\c#\Traffic Light\Project 1\obj\Debug\Project 1.pdb
+C:\Users\dolla\Desktop\c#\Traffic Light\Project 1\bin\Debug\Project 1.exe
+C:\Users\dolla\Desktop\c#\Traffic Light\Project 1\bin\Debug\Project 1.pdb
