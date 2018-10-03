@@ -26,18 +26,18 @@ echo View the list of source files
 ls -l
 
 echo "Compile circlealgorithm.cs to create the file: circlealgorithm.dll"
-mcs -target:library -r:System.Drawing.dll -out:drawcirclealgorithm.dll drawcirclealgorithm.cs
+mcs -target:library -r:System.Drawing.dll -out:trafficAlgorithm.dll trafficAlgorithm.cs
 
 echo "Compile drawCirclesFrame.cs and link the previously created dll file(s)."
-mcs -target:library -r:System.Windows.Forms.dll -r:System.Drawing.dll -r:drawcirclealgorithm.dll -out:drawCirclesFrame.dll drawCirclesFrame.cs
+mcs -target:library -r:System.Windows.Forms.dll -r:System.Drawing.dll -r:trafficAlgorithm.dll -out:trafficFrame.dll trafficFrame.cs
 
 echo "Compile drawCircleMain.cs and link the previously created dll file(s) to create an executable file."
-mcs -r:System.Windows.Forms.dll -r:System.Drawing.dll -r:drawcirclealgorithm.dll -r:drawCirclesFrame.dll -out:drawCircle.exe drawCircleMain.cs
+mcs -r:System.Windows.Forms.dll -r:System.Drawing.dll -r:trafficAlgorithm.dll -r:trafficFrame.dll -out:trafficLight.exe trafficMain.cs
 
 echo "View the list of files in the current folder"
 ls -l
 
 echo "Run program."
-./drawCircle.exe
+./trafficLight.exe
 
 echo "The script has terminated."

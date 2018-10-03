@@ -11,7 +11,7 @@
            Actions: Draw, Erase, Quit
 
  File name: drawCircleFrame.cs
- File Description: This file simply calls Drawcircleframe Form class 
+ File Description: This file simply calls Drawcircleframe Form class
  Progress: COMPLETE
 
  How to run:

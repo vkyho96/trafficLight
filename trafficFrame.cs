@@ -26,12 +26,12 @@ using System.Drawing;
 using System.Windows.Forms;
 
 public class trafficFrame : Form
-{   
+{
     //application size
     private const int formwidth = 1600;
     private const int formheight = 900;
 
-    
+
     private Label title = new Label();
 
     //Colors
@@ -41,9 +41,9 @@ public class trafficFrame : Form
 
     private Color backgroundColor_2 = Color.FromArgb(64, 107, 128);
 
-    //utility 
+    //utility
     Pen myPen = new Pen(Color.White, 3);
-    Pen outLine = new Pen(Color.FromArgb(198, 226, 255), 1); 
+    Pen outLine = new Pen(Color.FromArgb(198, 226, 255), 1);
     SolidBrush myBrush = new SolidBrush(Color.Red);
     private Font font_large = new Font("Comic Sans MS", 36, FontStyle.Regular);
     private Font font_medium = new Font("Comic Sans MS", 24, FontStyle.Regular);
@@ -58,21 +58,25 @@ public class trafficFrame : Form
 
     //helpers
     private bool graphicShow = false;
- 
+
 
     //Locations
     private Point location_of_title = new Point(500, 0);
 
- 
+
     private Point location_of_draw_button = new Point(950, 700);
     private Point location_of_erase_button = new Point(950, 750);
     private Point location_of_quit_button = new Point(950, 800);
+
+    //declare clock
+    private static System.Timers.Timer traffic_clock = new System.Timers.Timer();
+    private Int message_counter;
 
     public void make_btn()
     {
         /* CUSTOMIZATION */
 
-       
+
         //Action buttons
         draw_btn.Text = "Draw";
         draw_btn.Size = new Size(150, 50);
@@ -113,10 +117,10 @@ public class trafficFrame : Form
         title.Font = font_large;
         title.Size = new Size(700, 80);
         title.Location = location_of_title;
-    
+
         make_btn();
 
-       
+
         // display
         Controls.Add(title);
         Controls.Add(draw_btn);
@@ -128,6 +132,11 @@ public class trafficFrame : Form
         erase_btn.Click += new EventHandler(eraseCircles);
         quit_btn.Click += new EventHandler(exitfromthisprogram);
 
+        //Clock
+        traffic_clock.Enabled = false;
+        traffic_clock. Elapsed += new ElapsedEvenHandler(lightSwitch);
+        traffic_clock.Interval = 4;
+        traffic_clock.Enabled = true;
 
     }//End of constructor
 
@@ -155,6 +164,13 @@ public class trafficFrame : Form
         System.Console.WriteLine("Program ended.");
         Close();
     }
+
+    protected void lightSwitch(System.Object sender, ElapsedEventArgs evt){
+      //System.Console.WriteLine("message_counter before calling set_up_screen_delay = " + message_counter);
+      message_counter = Clock_algorithms.slowClock(ref message_counter, ref traffic_clock, ref myBrush2);
+      //System.Console.WriteLine("message_counter after calling set_up_screen_delay  = " + message_counter);
+      Invalidate();
+    }//End of function
 
 
     protected override void OnPaint(PaintEventArgs e)
@@ -184,4 +200,4 @@ public class trafficFrame : Form
         }
         base.OnPaint(e);
     }
-}//End of class 
+}//End of class
