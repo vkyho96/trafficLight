@@ -28,8 +28,8 @@ using System.Windows.Forms;
 public class trafficFrame : Form
 {
     //application size
-    private const int formwidth = 1600;
-    private const int formheight = 900;
+    private const int formwidth = 1920;
+    private const int formheight = 1080;
 
 
     private Label title = new Label();
@@ -44,7 +44,7 @@ public class trafficFrame : Form
     //utility
     Pen myPen = new Pen(Color.White, 3);
     Pen outLine = new Pen(Color.FromArgb(198, 226, 255), 1);
-    SolidBrush myBrush = new SolidBrush(Color.Red);
+    SolidBrush traffic_light_brush = new SolidBrush(Color.Red);
     private Font font_large = new Font("Comic Sans MS", 36, FontStyle.Regular);
     private Font font_medium = new Font("Comic Sans MS", 24, FontStyle.Regular);
     private Font font_small = new Font("Comic Sans MS", 16, FontStyle.Regular);
@@ -70,13 +70,14 @@ public class trafficFrame : Form
 
     //declare clock
     private static System.Timers.Timer traffic_clock = new System.Timers.Timer();
-    private Int message_counter;
+    private Int tracker;
+     // 0-2 -> slow pattern
+     // 3-5 -> medium speed
+     // 6-8 -> fastest 
 
     public void make_btn()
     {
-        /* CUSTOMIZATION */
-
-
+   
         //Action buttons
         draw_btn.Text = "Draw";
         draw_btn.Size = new Size(150, 50);
@@ -118,8 +119,8 @@ public class trafficFrame : Form
         title.Size = new Size(700, 80);
         title.Location = location_of_title;
 
+        //add buttons
         make_btn();
-
 
         // display
         Controls.Add(title);
@@ -167,8 +168,12 @@ public class trafficFrame : Form
 
     protected void lightSwitch(System.Object sender, ElapsedEventArgs evt){
       //System.Console.WriteLine("message_counter before calling set_up_screen_delay = " + message_counter);
-      message_counter = Clock_algorithms.slowClock(ref message_counter, ref traffic_clock, ref myBrush2);
       //System.Console.WriteLine("message_counter after calling set_up_screen_delay  = " + message_counter);
+
+
+     tracker = Clock_algorithms.trafficClock(ref tracker, ref traffic_clock, ref traffic_light_brush);
+
+
       Invalidate();
     }//End of function
 
@@ -177,27 +182,49 @@ public class trafficFrame : Form
     {
 
         Graphics graph = e.Graphics;
-        SolidBrush myBrush2 = new SolidBrush(backgroundColor_2);
+        SolidBrush myBrush = new SolidBrush(backgroundColor_2);
 
-        graph.FillRectangle(myBrush2, 0, 675, 1600, 225);
-        graph.FillRectangle(myBrush2, 0, 0, 1600, 80);
+        graph.FillRectangle(myBrush, 0, 675, 1600, 225);
+        graph.FillRectangle(myBrush, 0, 0, 1600, 80);
 
         //outline
         graph.DrawLine(outLine, 0, 675, 1600, 675);
         graph.DrawLine(outLine, 0, 80, 1600, 80);
 
 
-        if (graphicShow)
-        {
-            graph.FillEllipse(myBrush, new Rectangle(725, 150, 150, 150));
-            graph.FillEllipse(myBrush, new Rectangle(725, 325, 150, 150));
-            graph.FillEllipse(myBrush, new Rectangle(725, 500, 150, 150));
+        // if (graphicShow)
+        // {
+        //     graph.FillEllipse(traffic_light_brush, new Rectangle(725, 150, 150, 150));
+        //     graph.FillEllipse(traffic_light_brush, new Rectangle(725, 325, 150, 150));
+        //     graph.FillEllipse(traffic_light_brush, new Rectangle(725, 500, 150, 150));
 
-            //outline
-            graph.DrawEllipse(outLine, new Rectangle(725, 150, 150, 150));
-            graph.DrawEllipse(outLine, new Rectangle(725, 325, 150, 150));
-            graph.DrawEllipse(outLine, new Rectangle(725, 500, 150, 150));
-        }
+        //     //outline
+        //     graph.DrawEllipse(outLine, new Rectangle(725, 150, 150, 150));
+        //     graph.DrawEllipse(outLine, new Rectangle(725, 325, 150, 150));
+        //     graph.DrawEllipse(outLine, new Rectangle(725, 500, 150, 150));
+        // }
+
+
+            switch(tracker){
+                case 0 || 3 || 6: 
+                    graph.FillEllipse(traffic_light_brush, new Rectangle(725, 150, 150, 150));
+                    graph.FillEllipse(backgroundColor, new Rectangle(725, 325, 150, 150));
+                    graph.FillEllipse(backgroundColor, new Rectangle(725, 500, 150, 150));
+                    graph.DrawEllipse(outLine, new Rectangle(725, 150, 150, 150));
+                    break;
+                case 1 || 4 || 7:
+                    graph.FillEllipse(traffic_light_brush, new Rectangle(725, 325, 150, 150));
+                    graph.FillEllipse(backgroundColor, new Rectangle(725, 325, 150, 150));
+                    graph.FillEllipse(backgroundColor, new Rectangle(725, 500, 150, 150));
+                    graph.DrawEllipse(outLine, new Rectangle(725, 325, 150, 150));
+                    break;
+                case 2 || 5 || 8 : 
+                    graph.FillEllipse(traffic_light_brush, new Rectangle(725, 500, 150, 150));
+                    graph.FillEllipse(backgroundColor, new Rectangle(725, 325, 150, 150));
+                    graph.FillEllipse(backgroundColor, new Rectangle(725, 500, 150, 150));
+                    graph.DrawEllipse(outLine, new Rectangle(725, 500, 150, 150));
+                    break;
+            }
         base.OnPaint(e);
     }
 }//End of class

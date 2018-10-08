@@ -28,21 +28,40 @@
 
  public class Clock_algorithms{
 
-  public static int slowClock(int message_counter, ref System.Timers.Timer traffic_clock, ref Brush painting_tool){
-    //traffic_clock.Start();
-     switch(message_counter){
+  public static int trafficClock(int tracker, ref System.Timers.Timer traffic_clock, ref Brush traffic_light_brush){  
+     switch(tracker){
+                //cases 0-2 Slow Timer
         case 0: traffic_clock.Interval = (int)4000;
-                 break;
-         case 4000: traffic_clock.Interval = (int)3000;
-                 painting_tool = Brushes.Green;
-                 break;
-         case 7000: traffic_clock.Interval = (int)1000;
-                 painting_tool = Brushes.Yellow;
-                 break;
+                traffic_light_brush = Brushes.Red;
+                break;
+        case 1: traffic_clock.Interval = (int)3000;
+                traffic_light_brush = Brushes.Green;
+                break;
+        case 2: traffic_clock.Interval = (int)1000;
+                traffic_light_brush = Brushes.Yellow;
+                break;
+                //cases 3-5 Medium Timer
+        case 3: traffic_clock.Interval = (int)2000;
+                traffic_light_brush = Brushes.Red;
+                break;
+        case 4: traffic_clock.Interval = (int)1500;
+                traffic_light_brush = Brushes.Green;
+                break;
+        case 5: traffic_clock.Interval = (int)500;
+                traffic_light_brush = Brushes.Yellow;
+                break;
+                //cases 6-8 Fast Timer
+        case 6: traffic_clock.Interval = (int)1000;
+                traffic_light_brush = Brushes.Red;
+                break;
+        case 7: traffic_clock.Interval = (int)750;
+                traffic_light_brush = Brushes.Green;
+                break;
+        case 8: traffic_clock.Interval = (int)250;
+                traffic_light_brush = Brushes.Yellow;
+                break;
 
-        }//End of switch
-
-    //  traffic_clock.Stop();
-     }//End of method s
-
+        }
+        return (tracker + 1) % 8;
+     }
  }//End of class
